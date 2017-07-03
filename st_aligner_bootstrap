@@ -75,8 +75,7 @@ Version 0.1
 	pip install virtualenv
 	virtualenv /home/st_aligner/venv
 	pip install -r server/requirements.txt
-	ls /github_dl/st_aligner/venv/bin
-	bash /github_dl/st_aligner/venv/bin/activate
+	bash /home/st_aligner/venv/bin/activate
 	sed -i '/chdir/c\chdir = /home/st_aligner/server' /github_dl/st_aligner/server/uwsgi-server-config.ini
 	sed -i '/logto/c\logto = /home/st_aligner/server/logs/%n.log' /github_dl/st_aligner/server/uwsgi-server-config.ini
 	sed -i '/plugin/c\plugin = /usr/lib/uwsgi/plugins/python_plugin.so' /github_dl/st_aligner/server/uwsgi-server-config.ini
