@@ -1,0 +1,94 @@
+Bootstrap: docker
+From: ubuntu:16.04
+IncludeCmd: yes
+
+%labels
+Maintainer alexander.stuckey@scilifelab.se
+Version 0.1
+
+%environment
+	SHELL=/bin/bash
+	export SHELL
+
+%post
+	#----------------------
+	#Install required tools
+	#---------------------
+
+	#apt-get -y update
+	#apt-get upgrade -y
+	#apt-get -y install wget sudo
+	#apt-get -y install build-essential
+	#apt-get -y install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev libboost-all-dev ctags
+	#apt-get -y install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev python-pip
+	#pip install --upgrade pip
+	#apt-get -y install uwsgi uwsgi-core uwsgi-plugin-python
+
+	#--------------
+	#Install opencv
+	#--------------
+
+	#echo "Downloading and installing opencv 3.2.0"
+	#mkdir -p /github_dl
+	#cd /github_dl
+	#wget https://github.com/opencv/opencv/archive/3.2.0.tar.gz
+	#tar -zxvf 3.2.0.tar.gz
+	#cd opencv-3.2.0
+	#mkdir -p build
+	#cd build
+	#cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..
+	#make -j2
+	#sudo make install	
+
+	#----------------------------------
+	#Install tissue recognition library
+	#----------------------------------
+
+	#echo "Installing tissue recognition library"
+	#cd /github_dl
+	#git clone https://github.com/SpatialTranscriptomicsResearch/tissue_recognition
+	#cd tissue_recognition
+	#mkdir -p build
+	#cd build
+	#cmake ..
+	#make install
+	#pip install setuptools
+	#cd ../python-module
+	#python setup.py install
+	
+	#------------------
+	#Install st aligner
+	#------------------
+
+	echo "Installing st_aligner"
+	cd /github_dl
+	git clone https://github.com/SpatialTranscriptomicsResearch/st_aligner.git
+	cd st_aligner
+	pip install -r server/requirements.txt
+	pip install virtualenv
+	virtualenv venv
+	pip install -r server/requirements.txt
+	ls /github_dl/st_aligner/venv/bin
+	bash /github_dl/st_aligner/venv/bin/activate
+	mkdir -p /home/st_aligner/server/logs
+	sed -i '/chdir/c\chdir = /github_dl/st_aligner/server' /github_dl/st_aligner/server/uwsgi-server-config.ini
+	sed -i '/logto/c\logto = /home/st_aligner/server/logs/%n.log' /github_dl/st_aligner/server/uwsgi-server-config.ini
+	sed -i '/plugin/c\plugin = /usr/lib/uwsgi/plugins/python_plugin.so' /github_dl/st_aligner/server/uwsgi-server-config.ini
+	sed -i '/venv/c\venv = /github_dl/st_aligner/venv' /github_dl/st_aligner/server/uwsgi-server-config.ini
+	sed -i '/static-map/c\static-map = /=/github_dl/st_aligner/client' /github_dl/st_aligner/server/uwsgi-server-config.ini
+	sudo cp server/uwsgi-server-config.ini /etc/uwsgi/apps-available/
+	#sudo ln -s /etc/uwsgi/apps-available/uwsgi-server-config.ini /etc/uwsgi/apps-enabled/uwsgi-server-config.ini
+	chmod -R 0777 /home/st_aligner/
+	cd /github_dl/st_aligner/client
+	npm install
+	ln -s /usr/bin/nodejs /usr/bin/node
+	make DEVEL=1
+	exit 0
+	
+%runscript
+
+	echo "Starting uwsgi webserver..."
+	cd /github_dl/st_aligner/server
+	virtualenv venv
+	uwsg uwsgi-server-config.ini
+	python server.py
