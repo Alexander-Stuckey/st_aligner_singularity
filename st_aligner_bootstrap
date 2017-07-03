@@ -21,8 +21,15 @@ Version 0.1
 	apt-get -y install build-essential
 	apt-get -y install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev libboost-all-dev ctags
 	apt-get -y install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev python-pip
+	apt-get -y install npm
 	pip install --upgrade pip
 	apt-get -y install uwsgi uwsgi-core uwsgi-plugin-python
+
+	#----------------
+	#Make home folder
+	#----------------
+
+	mkdir -p /home/st_aligner
 
 	#--------------
 	#Install opencv
@@ -66,18 +73,17 @@ Version 0.1
 	cd st_aligner
 	pip install -r server/requirements.txt
 	pip install virtualenv
-	virtualenv venv
+	virtualenv /home/st_aligner/venv
 	pip install -r server/requirements.txt
 	ls /github_dl/st_aligner/venv/bin
 	bash /github_dl/st_aligner/venv/bin/activate
-	sed -i '/chdir/c\chdir = /github_dl/st_aligner/server' /github_dl/st_aligner/server/uwsgi-server-config.ini
+	sed -i '/chdir/c\chdir = /home/st_aligner/server' /github_dl/st_aligner/server/uwsgi-server-config.ini
 	sed -i '/logto/c\logto = /home/st_aligner/server/logs/%n.log' /github_dl/st_aligner/server/uwsgi-server-config.ini
 	sed -i '/plugin/c\plugin = /usr/lib/uwsgi/plugins/python_plugin.so' /github_dl/st_aligner/server/uwsgi-server-config.ini
-	sed -i '/venv/c\venv = /github_dl/st_aligner/venv' /github_dl/st_aligner/server/uwsgi-server-config.ini
-	sed -i '/static-map/c\static-map = /=/github_dl/st_aligner/client' /github_dl/st_aligner/server/uwsgi-server-config.ini
+	sed -i '/venv/c\venv = /home/st_aligner/venv' /github_dl/st_aligner/server/uwsgi-server-config.ini
+	sed -i '/static-map/c\static-map = /=/home/st_aligner/client' /github_dl/st_aligner/server/uwsgi-server-config.ini
 	sudo cp server/uwsgi-server-config.ini /etc/uwsgi/apps-available/
 	sudo ln -s /etc/uwsgi/apps-available/uwsgi-server-config.ini /etc/uwsgi/apps-enabled/uwsgi-server-config.ini
-	chmod -R 0777 /home/st_aligner/
 	cd /github_dl/st_aligner/client
 	npm install
 	ln -s /usr/bin/nodejs /usr/bin/node
@@ -94,6 +100,7 @@ Version 0.1
 	cp /github_dl/opencv-3.2.0/build/lib/libopencv_core.so.3.2 /home/st_aligner/server
 	cp /github_dl/opencv-3.2.0/build/lib/libopencv_imgproc.so.3.2 /home/st_aligner/server
 	mkdir -p /home/st_aligner/server/logs
+	mv /github_dl/st_aligner/server/venv /home/st_aligner/server
 	chmod -R 0777 /home/st_aligner/
 	exit 0
 	
