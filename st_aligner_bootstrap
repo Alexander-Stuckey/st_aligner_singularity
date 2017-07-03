@@ -99,7 +99,6 @@ Version 0.1
 	cp /github_dl/opencv-3.2.0/build/lib/libopencv_core.so.3.2 /home/st_aligner/server
 	cp /github_dl/opencv-3.2.0/build/lib/libopencv_imgproc.so.3.2 /home/st_aligner/server
 	mkdir -p /home/st_aligner/server/logs
-	mv /github_dl/st_aligner/server/venv /home/st_aligner/server
 	chmod -R 0777 /home/st_aligner/
 	exit 0
 	
