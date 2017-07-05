@@ -24,6 +24,8 @@ Version 0.1
 	apt-get -y install npm
 	pip install --upgrade pip
 	apt-get -y install uwsgi uwsgi-core uwsgi-plugin-python
+	rm /bin/sh
+	ln -s /bin/bash /bin/sh
 
 	#----------------
 	#Make home folder
@@ -86,6 +88,8 @@ Version 0.1
 	cd /github_dl/st_aligner/client
 	npm install
 	ln -s /usr/bin/nodejs /usr/bin/node
+	git checkout develop
+	git pull origin develop
 	make DEVEL=1
 
 	#--------------------------------
