@@ -76,12 +76,12 @@ Version 1.0
 	pip install -r server/requirements.txt
 	pip install virtualenv
 	virtualenv /home/st_aligner/venv
+	. /home/st_aligner/venv/bin/activate
 	pip install -r server/requirements.txt
-	bash /home/st_aligner/venv/bin/activate
 	sed -i '/chdir/c\chdir = /home/st_aligner/server' /github_dl/st_aligner/server/uwsgi-server-config.ini
 	sed -i '/logto/c\logto = /home/st_aligner/server/logs/%n.log' /github_dl/st_aligner/server/uwsgi-server-config.ini
 	sed -i '/plugin/c\plugin = /usr/lib/uwsgi/plugins/python_plugin.so' /github_dl/st_aligner/server/uwsgi-server-config.ini
-	sed -i '/venv/c\venv = /home/st_aligner/venv' /github_dl/st_aligner/server/uwsgi-server-config.ini
+	sed -i '/virtualenv/c\virtualenv = /home/st_aligner/venv' /github_dl/st_aligner/server/uwsgi-server-config.ini
 	sed -i '/static-map/c\static-map = /=/home/st_aligner/client' /github_dl/st_aligner/server/uwsgi-server-config.ini
 	sudo cp server/uwsgi-server-config.ini /etc/uwsgi/apps-available/
 	sudo ln -s /etc/uwsgi/apps-available/uwsgi-server-config.ini /etc/uwsgi/apps-enabled/uwsgi-server-config.ini
@@ -128,5 +128,5 @@ Version 1.0
 %runscript
 
 	echo "Starting uwsgi webserver..."
-	cd /home/st_aligner/
-	python server/server.py
+	cd /home/st_aligner
+	uwsgi server/uwsgi-server-config.ini
