@@ -1,4 +1,5 @@
-# st_aligner_singularity
-Singularity setup script for st_aligner
+# A Singularity container for the ST aligner WebApp
 
-Development is being done inside vagrant vm for OS X
+This document details how to get set up and running with the ST aligner WebApp inside a singularity container.
+Singularity can be found here: [http://singularity.lbl.gov/]
+
