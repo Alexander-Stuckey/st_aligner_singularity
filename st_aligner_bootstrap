@@ -112,11 +112,11 @@ Version 1.0
 	#----------------------------
 	
 	cd /home/st_aligner/server
-	sed -i 's/utils/utility/g' < server.py
-	sed -i 's@../client/devel@client/devel@g' < server.py
-	sed -i 's/from . import utils/import utils/ < tissue_recognition.py
-	sed '9,11d' tissue_recognition.py
-	sed -i 's/LIB_FILE/\"/home/st_aligner/server/libtissue-recognition.so\"/' < tissue_recognition.py
+	sed -i 's/utils/utility/g' server.py
+	sed -i 's@../client/devel@client/devel@g' server.py
+	sed -i 's/from . import utils/import utils/' tissue_recognition.py
+	sed -i '9,11d' tissue_recognition.py
+	sed -i 's@LIB_FILE@"/home/st_aligner/server/libtissue-recognition.so"@' tissue_recognition.py
 
 	#--------
 	#Clean up
@@ -129,5 +129,4 @@ Version 1.0
 
 	echo "Starting uwsgi webserver..."
 	cd /home/st_aligner/
-	#virtualenv venv
 	python server/server.py
