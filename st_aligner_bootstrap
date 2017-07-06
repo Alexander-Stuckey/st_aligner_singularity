@@ -4,7 +4,7 @@ IncludeCmd: yes
 
 %labels
 Maintainer alexander.stuckey@scilifelab.se
-Version 0.1
+Version 1.0
 
 %environment
 	SHELL=/bin/bash
@@ -98,12 +98,31 @@ Version 0.1
 
 	cp -R /github_dl/st_aligner/server /home/st_aligner/server
 	cp -R /github_dl/st_aligner/client /home/st_aligner/client
+	mv /home/st_aligner/server/utils.py /home/st_aligner/server/utility.py
 	cp -R /github_dl/tissue_recognition/python-module/tissue_recognition/*.py /home/st_aligner/server
 	cp /github_dl/tissue_recognition/build/src/*.so /home/st_aligner/server
 	cp /github_dl/opencv-3.2.0/build/lib/libopencv_core.so.3.2 /home/st_aligner/server
 	cp /github_dl/opencv-3.2.0/build/lib/libopencv_imgproc.so.3.2 /home/st_aligner/server
 	mkdir -p /home/st_aligner/server/logs
+	ln -s /home/st_aligner/client /home/st_aligner/server/client
 	chmod -R 0777 /home/st_aligner/
+	
+	#----------------------------
+	#Edit scripts to work locally
+	#----------------------------
+	
+	cd /home/st_aligner/server
+	sed -i 's/utils/utility/g' < server.py
+	sed -i 's@../client/devel@client/devel@g' < server.py
+	sed -i 's/from . import utils/import utils/ < tissue_recognition.py
+	sed '9,11d' tissue_recognition.py
+	sed -i 's/LIB_FILE/\"/home/st_aligner/server/libtissue-recognition.so\"/' < tissue_recognition.py
+
+	#--------
+	#Clean up
+	#--------
+
+	rm /github_dl/*.tar.gz
 	exit 0
 	
 %runscript
