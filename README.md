@@ -31,10 +31,10 @@ If you are running the container inside a virtual machine then a few additional 
 The following uses vagrant VM as an example.
 
 Edit your Vagrantfile so that the following lines are uncommented:
-- config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
-- config.vm.network "private_network", ip: "192.168.33.10"
-
 ```
+config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+config.vm.network "private_network", ip: "192.168.33.10"
+
 config.vm.provider "virtualbox" do |vb|
 
 	vb.memory = "8192"
