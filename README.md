@@ -20,7 +20,9 @@ Once the bootstrap procedure has finished (may take around 30 minutes), you are 
 
 singularity run st_aligner.img
 
-##Accessing the webserver and other considerations
+Accessing the webserver and other considerations
+------------------------------------------------
+
 If you are running the container outside a virtual machine, you should be able to connect to it with the following address in your web browser:
 
 localhost:8080
