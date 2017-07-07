@@ -10,15 +10,21 @@ To install Singularity, follow the instructions on the following webpage relevan
 
 Once Singularity has been installed, you need to create a container:
 
+```
 singularity create --size 8192 st_aligner.img
+```
 
 Once the container has been created, it can be bootstrapped with the bootstrap recipie provided. This command needs to be run as root in order to install all the components into the container.
 
+```
 sudo singularity bootstrap st_aligner.img st_aligner_bootstrap
+```
 
 Once the bootstrap procedure has finished (may take around 30 minutes), you are ready to run the st_aligner.
 
+```
 singularity run st_aligner.img
+```
 
 Accessing the webserver and other considerations
 ------------------------------------------------
