@@ -34,11 +34,13 @@ Edit your Vagrantfile so that the following lines are uncommented:
 - config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
 - config.vm.network "private_network", ip: "192.168.33.10"
 
+```
 config.vm.provider "virtualbox" do |vb|
 
 	vb.memory = "8192"
 
 end
+```
 
 This will allow you to connect to the webserver on the ip specified, on port 8080. Enter the following in your web browser:
 192.168.33.10:8080
