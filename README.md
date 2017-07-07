@@ -25,7 +25,7 @@ Accessing the webserver and other considerations
 
 If you are running the container outside a virtual machine, you should be able to connect to it with the following address in your web browser:
 
-localhost:8080
+- localhost:8080
 
 If you are running the container inside a virtual machine then a few additional steps are necessary.
 The following uses vagrant VM as an example.
@@ -43,6 +43,7 @@ end
 ```
 
 This will allow you to connect to the webserver on the ip specified, on port 8080. Enter the following in your web browser:
-192.168.33.10:8080
+
+- 192.168.33.10:8080
 
 The st_aligner requires around 8GB of RAM. Less RAM is required if the images are reduced in size prior to aligning them. If you get the message "An error has occurred" while uploading images it is likely that the web server has run out of RAM. Either resize the input images, or allocate more RAM to your virtual machine (or both).
