@@ -88,8 +88,6 @@ Version 1.0
 	cd /github_dl/st_aligner/client
 	npm install
 	ln -s /usr/bin/nodejs /usr/bin/node
-	git checkout develop
-	git pull origin develop
 	make DEVEL=1
 
 	#--------------------------------
@@ -106,7 +104,13 @@ Version 1.0
 	mkdir -p /home/st_aligner/server/logs
 	ln -s /home/st_aligner/client /home/st_aligner/server/client
 	chmod -R 0777 /home/st_aligner/
-	
+
+	#-------------------------------
+	#Add coordinate adjusting script
+	#-------------------------------
+	cd /home/st_aligner
+	wget https://rawgit.com/Alexander-Stuckey/st_pipeline/master/scripts/adjust_matrix_coordinates.py
+		
 	#----------------------------
 	#Edit scripts to work locally
 	#----------------------------
