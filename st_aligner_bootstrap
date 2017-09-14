@@ -1,6 +1,7 @@
-Bootstrap: docker
-From: ubuntu:16.04
-IncludeCmd: yes
+Bootstrap: debootstrap
+OSVersion: xenial
+MirrorURL: http://us.archive.ubuntu.com/ubuntu/
+IncludeCmd: apt-get
 
 %labels
 Maintainer alexander.stuckey@scilifelab.se

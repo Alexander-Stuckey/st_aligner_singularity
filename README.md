@@ -8,6 +8,18 @@ To install Singularity, follow the instructions on the following webpage relevan
 - Mac OSX	: http://singularity.lbl.gov/install-mac
 - Windows 	: http://singularity.lbl.gov/install-windows
 
+For Vagrant on OSX
+
+Update apt
+```
+sudo apt update
+```
+
+Install debootstrap
+```
+sudo apt-get install debootstrap
+```
+
 Once Singularity has been installed, you need to create a container:
 
 ```
